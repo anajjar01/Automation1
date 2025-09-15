@@ -2,16 +2,16 @@
 <testng-results ignored="3" total="4" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-09-11T20:58:54 AST" name="Default suite" finished-at="2025-09-11T20:59:03 AST" duration-ms="9123">
+  <suite started-at="2025-09-15T21:49:45 AST" name="Default suite" finished-at="2025-09-15T21:50:00 AST" duration-ms="14969">
     <groups>
     </groups>
-    <test started-at="2025-09-11T20:58:54 AST" name="Default test" finished-at="2025-09-11T20:59:03 AST" duration-ms="9123">
+    <test started-at="2025-09-15T21:49:45 AST" name="Default test" finished-at="2025-09-15T21:50:00 AST" duration-ms="14969">
       <class name="Automation.MyTestcases">
-        <test-method is-config="true" signature="mySetup()[pri:0, instance:Automation.MyTestcases@293a5f75]" started-at="2025-09-11T20:58:54 AST" name="mySetup" finished-at="2025-09-11T20:58:59 AST" duration-ms="5243" status="PASS">
+        <test-method is-config="true" signature="mySetup()[pri:0, instance:Automation.MyTestcases@60957c0f]" started-at="2025-09-15T21:49:45 AST" name="mySetup" finished-at="2025-09-15T21:49:49 AST" duration-ms="4425" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- mySetup -->
-        <test-method signature="AddItemToThecart()[pri:4, instance:Automation.MyTestcases@293a5f75]" started-at="2025-09-11T20:59:00 AST" name="AddItemToThecart" finished-at="2025-09-11T20:59:03 AST" duration-ms="3839" status="PASS">
+        <test-method signature="AddItemToThecart()[pri:4, instance:Automation.MyTestcases@60957c0f]" started-at="2025-09-15T21:49:50 AST" name="AddItemToThecart" finished-at="2025-09-15T21:50:00 AST" duration-ms="10476" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AddItemToThecart -->

@@ -134,21 +134,35 @@ public class MyTestcases extends myData {
 		
 	}
 	
-	@Test(priority = 4, enabled = true)
-	
-	public void AddItemToThecart() {
-		
-		driver.navigate().to(myWebSite);
-		
-		List<WebElement> AllItems = driver.findElements(By.className("prdocutname"));
-		
-		int RandomIndexForTheItem = rand.nextInt(AllItems.size());
-		
-		AllItems.get(RandomIndexForTheItem).click();
-		
-		;
-		
-		System.out.println(driver.getCurrentUrl());
+	@Test(priority = 4)
+	public void AddItemToThecart() throws InterruptedException {
+
+	    driver.navigate().to(myWebSite);
+
+	    // نحصل على كل المنتجات
+	    List<WebElement> allItems = driver.findElements(By.className("prdocutname"));
+
+	    int randomIndex = rand.nextInt(allItems.size());
+	    allItems.get(randomIndex).click();
+
+	    // نكرر لحد ما نلقى منتج صالح
+	    while (driver.getPageSource().contains("Out of Stock") 
+	           || driver.getCurrentUrl().contains("product_id=116")) {
+
+	        driver.navigate().back();
+
+	        // نجيب 15 منتج (أول 15 من الصفحة مثل ما قلت)
+	        List<WebElement> alternativeItems = driver.findElements(By.className("prdocutname"));
+
+	        int alternativeIndex = rand.nextInt(15); // بس بين 0 و 14
+	        alternativeItems.get(alternativeIndex).click();
+	    }
+
+	    // لما نطلع من الـ while يعني لقينا منتج صالح
+	    WebElement addToCartButton = driver.findElement(By.cssSelector(".cart"));
+	    addToCartButton.click();
+
+	    System.out.println("تمت إضافة المنتج: " + driver.getCurrentUrl());
 	}
 
 	
