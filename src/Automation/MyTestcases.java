@@ -1,6 +1,7 @@
 package Automation;
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -134,37 +135,32 @@ public class MyTestcases extends myData {
 		
 	}
 	
-	@Test(priority = 4)
-	public void AddItemToThecart() throws InterruptedException {
-
+	@Test(priority = 4,invocationCount = 1)
+	public void AddItemToTheCart() {
 	    driver.navigate().to(myWebSite);
+	    Random rand = new Random();
 
-	    // نحصل على كل المنتجات
-	    List<WebElement> allItems = driver.findElements(By.className("prdocutname"));
+	    for (int i = 0; i < 10; i++) { // max 10 attempts here we can increase momkin 16 
+	        // pick a random item and open it
+	        List<WebElement> items = driver.findElements(By.className("prdocutname"));
+	        int randomItem = rand.nextInt(items.size());
+	        items.get(randomItem).click();
 
-	    int randomIndex = rand.nextInt(allItems.size());
-	    allItems.get(randomIndex).click();
+	        // check availability
+	        boolean outOfStock = driver.getPageSource().contains("Out of Stock"); // true
+	        boolean blockedProduct = driver.getCurrentUrl().contains("product_id=116");//false
 
-	    // نكرر لحد ما نلقى منتج صالح
-	    while (driver.getPageSource().contains("Out of Stock") 
-	           || driver.getCurrentUrl().contains("product_id=116")) {
+	        if (!outOfStock && !blockedProduct) {
+	            driver.findElement(By.cssSelector(".cart")).click();
+	            System.out.println("Added to cart: " + driver.getCurrentUrl());
+	            return; // success
+	        }
 
-	        driver.navigate().back();
-
-	        // نجيب 15 منتج (أول 15 من الصفحة مثل ما قلت)
-	        List<WebElement> alternativeItems = driver.findElements(By.className("prdocutname"));
-
-	        int alternativeIndex = rand.nextInt(15); // بس بين 0 و 14
-	        alternativeItems.get(alternativeIndex).click();
+	        driver.navigate().back(); // try again
 	    }
 
-	    // لما نطلع من الـ while يعني لقينا منتج صالح
-	    WebElement addToCartButton = driver.findElement(By.cssSelector(".cart"));
-	    addToCartButton.click();
-
-	    System.out.println("تمت إضافة المنتج: " + driver.getCurrentUrl());
+	    throw new RuntimeException("No in-stock item found after 10 attempts.");
 	}
-
 	
 	public void AfterTest() {
 //		driver.close();
